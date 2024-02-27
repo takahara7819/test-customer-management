@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>User list</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>名前</th>
+                <th>email</th>
+                <th>更新</th>
+                <th>削除</th>
+            </tr>
+        </table>
+        <!--こちらに基礎課題で言われてる内容を記述しましょう。ここから-->
+        <p id="textTag"></p>
+        <p id="testTag"></p>
+        <ul id="arrTag"></ul>
+        <p id="objTag"></p>
+        <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
+        <script type="text/javascript">
+
+            // 参考例
+            let textTag = document.getElementById('textTag');
+            let NUMBER = `<%= number %>`;
+            textTag.innerHTML = NUMBER;
+            // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
+            // 基礎課題01:画面に表示する機能作りましょう。
+            let testTag = document.getElementById("testTag");
+            let TEST = `<%= test %>`;
+            testTag.innerHTML = TEST;
+            /*
+            基礎課題02,03をやる前に
+            配列とオブジェクトリストをapp.jsから取得するときに以下のやり方が必要になります。
+            変数名は自由に決めてください。プロパティ名についてはapp.jsでオブジェクト内に格納したプロパティ名を使用してください。
+            以下使用する際は<%#の「#」部分を「=」に変更するよう気をつけてください。%>
+            let 変数名 = JSON.parse('<%# JSON.stringify(プロパティ名) %>'.replace(/&#34;/g, '"'));
+            */
+            let ARR = JSON.parse('<%= JSON.stringify(arr_test) %>'.replace(/&#34;/g, '"'));
+            let test = JSON.parse('<%= JSON.stringify(obj) %>'.replace(/&#34;/g, '"'));
+
+            // 基礎課題02:HTML内にulタグを作成し、liタグでapp.jsで作成した情報を画面に表示して下さい。
+            let arrTag = document.getElementById("arrTag");
+            arrTag.insertAdjacentHTML("beforeend",`<li>${ARR}</li>`);
+            // 基礎課題03:作成したオブジェクトリストをブラウザに出力して下さい。その場合以下の様に出力して下さい。
+            // 例）
+            let objTag = document.getElementById("objTag");
+            objTag.innerHTML = "name: "+ test[0].name + "  email: " + test[0].email;
+            // name: s.chiba
+            // email: s.chiba@gmail.com
+        </script>
+    </body>
+</html>

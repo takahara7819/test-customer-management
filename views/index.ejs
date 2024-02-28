@@ -15,10 +15,13 @@
         </table>
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここから-->
         <p id="textTag"></p>
-        <p id="testTag"></p>
+        <!-- <p id="testTag"></p>
         <ul id="arrTag"></ul>
-        <p id="objTag"></p>
+        <p id="objTag"></p> -->
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
+        <input type="text" id="search">
+        <button onclick="btn()">ID検索</button>
+        <p id="searchText"></p>
         <script type="text/javascript">
 
             // 参考例
@@ -29,7 +32,7 @@
             // 基礎課題01:画面に表示する機能作りましょう。
             let testTag = document.getElementById("testTag");
             let TEST = `<%= test %>`;
-            testTag.innerHTML = TEST;
+            // testTag.innerHTML = TEST;
             /*
             基礎課題02,03をやる前に
             配列とオブジェクトリストをapp.jsから取得するときに以下のやり方が必要になります。
@@ -42,13 +45,31 @@
 
             // 基礎課題02:HTML内にulタグを作成し、liタグでapp.jsで作成した情報を画面に表示して下さい。
             let arrTag = document.getElementById("arrTag");
-            arrTag.insertAdjacentHTML("beforeend",`<li>${ARR}</li>`);
+            // arrTag.insertAdjacentHTML("beforeend",`<li>${ARR}</li>`);
             // 基礎課題03:作成したオブジェクトリストをブラウザに出力して下さい。その場合以下の様に出力して下さい。
             // 例）
             let objTag = document.getElementById("objTag");
-            objTag.innerHTML = "name: "+ test[0].name + "  email: " + test[0].email;
+            // objTag.innerHTML = "name: "+ test[0].name + "  email: " + test[0].email;
             // name: s.chiba
             // email: s.chiba@gmail.com
+
+            //実務課題01
+            let userList = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
+            // console.log(userList);
+            let search = document.getElementById("search");
+            let searchText = document.getElementById("searchText");
+
+            function btn() {
+                let searchV = search.value;
+                for (let i = 0; i < userList.length; i++) {
+                    let userListID = userList[i].id;
+                    if (userListID == searchV) {
+                        searchText.innerHTML = "名前：" + userList[i].name + " Email：" + userList[i].email;
+                    }
+                }
+            }
+
+
         </script>
     </body>
 </html>

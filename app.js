@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const port = 3000;
 
 app.set("view engine", "ejs");
@@ -49,21 +49,20 @@ app.get("/", (req, res) => {
     { name: "t.kosuge", email: "t.kosuge@gmail.com" },
     { name: "m.chiba", email: "m.chiba@gmail.com" },
     { name: "t.suzuki", email: "t.suzuki@gmail.com" },
-    { name: "t.hasegawa", email: "t.hasegawa@gmail.com" },
+    { name: "t.hasegawa", email: "t.hasegawa@gmail.com" }
   ];
-  // 51行目あたりに追加
-  app.post("/", (req, res) => {
-    const sql = "INSERT INTO users SET ?";
-    con.query(sql, req.body, function (err, result, fields) {
-      if (err) throw err;
-      console.log(result);
-      res.redirect("/");
-    });
+app.post('/', (req, res) => {
+  const sql = "INSERT INTO users SET ?"
+  con.query(sql, req.body, function(err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.redirect('/');
   });
+});
 
-  app.get("/create", (req, res) => {
-    res.sendFile(path.join(__dirname, "html/form.html"));
-  });
+app.get('/create', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html/form.html'))
+});
   // ==========ここまでの範囲で書くようにしましょう。==========
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
@@ -77,7 +76,7 @@ app.get("/", (req, res) => {
         指定の仕方はオブジェクトの考え方と同じで、プロパティ名: 値の形になります。値の部分は変数名を入れるようにして下さい。
         プロパティ名はindex.ejsで使用しますので、何の値が入ってるかわかるような名前にしましょう。
       */
-      number: num,
+      number: num
     });
   });
 });

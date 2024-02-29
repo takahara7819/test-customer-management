@@ -23,7 +23,6 @@
         <input type="text" id="search">
         <button onclick="btn()">ID検索</button>
         <p id="searchText"></p>
-
         <!--実務課題02-->
         <table>
             <% for (let i=0; i < users.length; i++) { %>
@@ -34,10 +33,13 @@
                     <td>
                         <%- users[i].email %>
                     </td>
+                    <td>
+                        <a href="/edit/<%- users[i].id %>">更新</a>
+                        <a href="/delete/<%- users[i].id %>">削除</a>
+                    </td>
                 </tr>
                 <% } %>
         </table>
-
         <script type="text/javascript">
 
             // 参考例
@@ -84,6 +86,7 @@
                 }
             }
 
+            //--実務課題02--
         </script>
     </body>
 </html>

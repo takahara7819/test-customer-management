@@ -56,7 +56,17 @@ app.post('/', (req, res) => {
   con.query(sql, req.body, function(err, result, fields) {
     if (err) throw err;
     console.log(result);
-    res.redirect('/');
+    // res.redirect('/');
+    // res.send('test');
+
+    console.log(req.body.name)
+    console.log(req.body.email)
+
+    if (req.body.name == "aaa") {
+      res.send("true");
+    } else {
+      res.send("false");
+    }
   });
 });
 

@@ -15,7 +15,18 @@
         <form action="/" method="post" novalidate>
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
-            <p><input type="submit" value="送信"></p>
+            <p><input type="submit" id="btn" value="送信"></p>
         </form>
+        <script type="text/javascript">
+            let name = document.getElementsByClassName("name");
+            let email = document.getElementsByClassName("email");
+            let btn = document.getElementById("btn");
+
+            function butotnClick() {
+                console.log(name[0]);
+                console.log(email[0]);
+            }
+            btn.addEventListener("click", butotnClick);
+        </script>
     </body>
 </html>

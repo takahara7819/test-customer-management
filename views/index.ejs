@@ -19,11 +19,25 @@
         <ul id="arrTag"></ul>
         <p id="objTag"></p> -->
         <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
-
         <!--実務課題01-->
         <input type="text" id="search">
         <button onclick="btn()">ID検索</button>
         <p id="searchText"></p>
+
+        <!--実務課題02-->
+        <table>
+            <% for (let i=0; i < users.length; i++) { %>
+                <tr>
+                    <td>
+                        <%- users[i].name %>
+                    </td>
+                    <td>
+                        <%- users[i].email %>
+                    </td>
+                </tr>
+                <% } %>
+        </table>
+
         <script type="text/javascript">
 
             // 参考例
@@ -69,7 +83,6 @@
                     }
                 }
             }
-
 
         </script>
     </body>

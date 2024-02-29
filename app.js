@@ -2,9 +2,11 @@ const path = require("path");
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
+const bodyParser = require('body-parser');
 const port = 3000;
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const mysql = require("mysql2");
 

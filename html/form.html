@@ -14,7 +14,19 @@
         <form action="/" method="post" novalidate>
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
-            <p><input type="submit" id="btn" value="送信"></p>
+            <p><input type="submit" id="btn" onsubmit="return checkForm()" value="送信"></p>
         </form>
+        <script>
+            let name = document.getElementsByClassName("name").value;
+            let email = document.getElementsByClassName("email").value;
+            let btn = document.getElementById("btn");
+
+            function validation() {
+                console.log(name);
+                console.log(email);
+            }
+            btn.addEventListener("click", validation);
+            
+        </script>
     </body>
 </html>

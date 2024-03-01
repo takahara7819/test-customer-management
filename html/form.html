@@ -11,8 +11,7 @@
     </head>
     <body>
         <h1>入力フォーム</h1>
-        <!-- onsubmit="return false" -->
-        <form action="/" method="post">
+        <form action="/" method="post" onsubmit="return false">
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
             <p><input type="submit" id="btn" value="送信"></p>
@@ -25,14 +24,18 @@
 
             function name_validation() {
                 if (name[0].value.match(/^[a-zA-Z]*$/)) {
-                    console.log("name OK")
+                    email[0].style.backgroundColor = "white"
                     return true;
+                } else {
+                    name[0].style.backgroundColor = "red"
                 }
             }
             function email_validation() {
                 if (email[0].value.match(regex)) {
-                    console.log("email OK")
+                    email[0].style.backgroundColor = "white"
                     return true;
+                } else {
+                    email[0].style.backgroundColor = "red"
                 }
             }
 

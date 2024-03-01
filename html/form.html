@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>入力フォーム</h1>
-        <form action="/" method="post" onsubmit="return false">
+        <form action="/" method="post" onSubmit="return check()">
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
             <p><input type="submit" id="btn" value="送信"></p>
@@ -19,28 +19,26 @@
         <script>
             let name = document.getElementsByName("name");
             let email = document.getElementsByName("email");
-            let btn = document.getElementById("btn");
             const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
-            function name_validation() {
+            function check() {
                 if (name[0].value.match(/^[a-zA-Z]*$/)) {
                     email[0].style.backgroundColor = "white"
                     return true;
                 } else {
                     name[0].style.backgroundColor = "red"
+                    return false;
                 }
-            }
-            function email_validation() {
                 if (email[0].value.match(regex)) {
                     email[0].style.backgroundColor = "white"
                     return true;
                 } else {
                     email[0].style.backgroundColor = "red"
+                    return false;
                 }
             }
-
-            name[0].addEventListener('change', name_validation);
-            email[0].addEventListener('change', email_validation);
+            name[0].addEventListener('change', check);
+            email[0].addEventListener('change', check);
         </script>
     </body>
 </html>

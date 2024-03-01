@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>入力フォーム</h1>
-        <form action="/" method="post" onSubmit=" return ( nameCheck() && emaliCheck() ) ">
+        <form action="/" method="post" onSubmit=" return ( nameCheck() && emailCheck() ) ">
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
             <p><input type="submit" id="btn" value="送信"></p>
@@ -23,16 +23,18 @@
 
             //名前バリデーション
             function nameCheck() {
-                if (name[0].value.match(/^[a-zA-Z]*$/)) {
-                    email[0].style.backgroundColor = "white"
+                if (name[0].value.match(/^[a-z]\.*/)) {
+                    name[0].style.backgroundColor = "white"
                     return true;
+                    console.log("true")
                 } else {
                     name[0].style.backgroundColor = "red"
                     return false;
+                    console.log("false")
                 }
             }
             //メールバリデーション
-            function emaliCheck() {
+            function emailCheck() {
                 if (email[0].value.match(regex)) {
                     email[0].style.backgroundColor = "white"
                     return true;
@@ -42,7 +44,7 @@
                 }
             }
             name[0].addEventListener('change', nameCheck);
-            email[0].addEventListener('change', emaliCheck);
+            email[0].addEventListener('change', emailCheck);
         </script>
     </body>
 </html>

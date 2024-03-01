@@ -11,22 +11,33 @@
     </head>
     <body>
         <h1>入力フォーム</h1>
-        <form action="/" method="post" novalidate>
+        <!-- onsubmit="return false" -->
+        <form action="/" method="post">
             <p>name <input type="text" name="name"></p>
             <p>email <input type="text" name="email"></p>
-            <p><input type="submit" id="btn" onsubmit="return checkForm()" value="送信"></p>
+            <p><input type="submit" id="btn" value="送信"></p>
         </form>
         <script>
-            let name = document.getElementsByClassName("name").value;
-            let email = document.getElementsByClassName("email").value;
+            let name = document.getElementsByName("name");
+            let email = document.getElementsByName("email");
             let btn = document.getElementById("btn");
+            const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
-            function validation() {
-                console.log(name);
-                console.log(email);
+            function name_validation() {
+                if (name[0].value.match(/^[a-zA-Z]*$/)) {
+                    console.log("name OK")
+                    return true;
+                }
             }
-            btn.addEventListener("click", validation);
-            
+            function email_validation() {
+                if (email[0].value.match(regex)) {
+                    console.log("email OK")
+                    return true;
+                }
+            }
+
+            name[0].addEventListener('change', name_validation);
+            email[0].addEventListener('change', email_validation);
         </script>
     </body>
 </html>

@@ -2,89 +2,101 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>User list</title>
+        <title>一覧画面 - 顧客管理</title>
     </head>
     <body>
-        <!--実務課題01-->
-        <input type="text" id="search">
-        <button onclick="btn()">ID検索</button>
-        <p id="searchText"></p>
         <table>
-            <tr>
-                <th>名前</th>
-                <th>email</th>
-                <th>更新</th>
-                <th>削除</th>
-            </tr>
-            <!--実務課題02-->
-            <% for (let i=0; i < users.length; i++) { %>
-                <tr>
-                    <td>
-                        <%- users[i].name %>
-                    </td>
-                    <td>
-                        <%- users[i].email %>
-                    </td>
-                    <td>
-                        <a href="/edit/<%- users[i].id %>">更新</a>
-                        <a href="/delete/<%- users[i].id %>">削除</a>
-                    </td>
-                </tr>
-                <% } %>
+            <thead>
+                <th>次回アポ日付</th>
+                <th>契約した売上</th>
+                <th>現在契約本数</th>
+                <th>会社名</th>
+                <th>会社名かな</th>
+                <th>資本金</th>
+                <th>従業員数</th>
+                <th>アポ先部署</th>
+                <th>担当者名</th>
+                <th>担当者名かな</th>
+                <th>URL</th>
+            </thead>
+            <tbody>
+                <% for (let i=0; i < users.length; i++) { %>
+                    <tr>
+                        <td>
+                            <% var date2 = users[i].NextAppointmentDate;
+                             var b = date2.toLocaleString('ja-JP', {era:'long'}); %>
+                                <%- b %>
+                        </td>
+                        <td>
+                            <%- users[i].sales %>
+                        </td>
+                        <td>
+                            <%- users[i].CurrentContractCount %>
+                        </td>
+                        <td>
+                            <%- users[i].CompanyName %>
+                        </td>
+                        <td>
+                            <%- users[i].CompanyNameKana %>
+                        </td>
+                        <td>
+                            <%- users[i].Capital %>
+                        </td>
+                        <td>
+                            <%- users[i].EmployeesCount %>
+                        </td>
+                        <td>
+                            <%- users[i].AppointmentDepartment %>
+                        </td>
+                        <td>
+                            <%- users[i].ContactPersonName %>
+                        </td>
+                        <td>
+                            <%- users[i].ContactPersonKana %>
+                        </td>
+                        <td>
+                            <%- users[i].URL %>
+                        </td>
+                        <td class="bt">
+                            <button><a href="/edit/<%- users[i].id %>">詳細情報</a></button>
+                            <!-- <button><a href="/delete/<%- users[i].id %>">編集</a></button> -->
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
         </table>
-        <p><a href="/create">ユーザーの追加</a></p>
-        <!--こちらに基礎課題で言われてる内容を記述しましょう。ここから-->
-        <!-- <p id="textTag"></p> -->
-        <!-- <p id="testTag"></p>
-        <ul id="arrTag"></ul>
-        <p id="objTag"></p> -->
-        <!--こちらに基礎課題で言われてる内容を記述しましょう。ここまで-->
+        <button><a href="/create">新規登録</a></button>
         <script type="text/javascript">
-
-            // 参考例
-            let textTag = document.getElementById('textTag');
-            let NUMBER = `<%= number %>`;
-            // textTag.innerHTML = NUMBER;
-            // ここからはapp.jsで作成した値をここでブラウザに出力するように機能を実装していきましょう。上記の参考例を元にやってみましょう。
-            // 基礎課題01:画面に表示する機能作りましょう。
-            let testTag = document.getElementById("testTag");
-            let TEST = `<%= test %>`;
-            // testTag.innerHTML = TEST;
-            /*
-            基礎課題02,03をやる前に
-            配列とオブジェクトリストをapp.jsから取得するときに以下のやり方が必要になります。
-            変数名は自由に決めてください。プロパティ名についてはapp.jsでオブジェクト内に格納したプロパティ名を使用してください。
-            以下使用する際は<%#の「#」部分を「=」に変更するよう気をつけてください。%>
-            let 変数名 = JSON.parse('<%# JSON.stringify(プロパティ名) %>'.replace(/&#34;/g, '"'));
-            */
-            let ARR = JSON.parse('<%= JSON.stringify(arr_test) %>'.replace(/&#34;/g, '"'));
-            let test = JSON.parse('<%= JSON.stringify(obj) %>'.replace(/&#34;/g, '"'));
-
-            // 基礎課題02:HTML内にulタグを作成し、liタグでapp.jsで作成した情報を画面に表示して下さい。
-            let arrTag = document.getElementById("arrTag");
-            // arrTag.insertAdjacentHTML("beforeend",`<li>${ARR}</li>`);
-            // 基礎課題03:作成したオブジェクトリストをブラウザに出力して下さい。その場合以下の様に出力して下さい。
-            // 例）
-            let objTag = document.getElementById("objTag");
-            // objTag.innerHTML = "name: "+ test[0].name + "  email: " + test[0].email;
-            // name: s.chiba
-            // email: s.chiba@gmail.com
-
-            //実務課題01
-            let userList = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
-            let search = document.getElementById("search");
-            let searchText = document.getElementById("searchText");
-
-            function btn() {
-                let searchV = search.value;
-                for (let i = 0; i < userList.length; i++) {
-                    let userListID = userList[i].id;
-                    if (userListID == searchV) {
-                        searchText.innerHTML = "名前：" + userList[i].name + " Email：" + userList[i].email;
-                    }
-                }
+        </script>
+        <style>
+            a {
+                text-decoration: none;
+                color: #000;
             }
 
-        </script>
+            table {
+                border-collapse: collapse;
+            }
+
+            th,
+            td {
+                text-align: center;
+                border: 1px solid #ccc;
+                padding: 10px;
+            }
+
+            td.bt {
+                border: none;
+            }
+
+            thead {
+                background-color: green;
+                color: #fff;
+            }
+
+            button {
+                margin: 5px;
+            }
+        </style>
     </body>
 </html>

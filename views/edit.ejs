@@ -4,29 +4,27 @@
         <meta charset="UTF-8">
         <title>詳細情報 - 顧客管理</title>
     </head>
-    <body>
-        <h1>詳細情報ページ</h1>
-        <p>会社名<br><%= user[0].CompanyName %></p>
-        <p>会社の所在地</p>
-        <p>資本金<br><%= user[0].Capital %></p>
-        <p>アポ日付<br><% var date2 = user[0].NextAppointmentDate;
-            var b = date2.toLocaleString('ja-JP', {era:'long'}); %>
-               <%- b %></p>
-        <p>契約した売上<br><%= user[0].sales %></p>
-        <p>現在契約本数<br><%= user[0].CurrentContractCount %></p>
-        <p>アポ先部署<br><%= user[0].AppointmentDepartment %></p>
-        <p>担当者名<br><%= user[0].ContactPersonName %></p>
-        <p>担当者名かな<br><%= user[0].ContactPersonKana %></p>
-        <p>会社URL<br><%= user[0].URL %></p>
-        
-        <h2>商談履歴</h2>
-        <p>TODOリスト（機能）</p>
-        <p>目標数値</p>
-        <p>目標数値と現在数値までいくらかの表示</p>
-        <p>商談履歴</p>
-        <p>〇〇業務に関する商談</p> 2023/5/21
-        <p>〇〇案件に関する打ち合わせ</p> TODOリスト（機能）
-        <p>目標数値</p> ¥10,000,000 編集ボタン
-        <p>目標数値と現在数値までいくらか</p> 残り ¥6,000,000
+    <h1>詳細情報ページ</h1>
+    <p>会社名<br><%= user[0].CompanyName %></p>
+    <p>会社の所在地</p>
+    <p>資本金<br><%= user[0].Capital %></p>
+    <p>アポ日付<br><% var date2 = user[0].NextAppointmentDate;
+            var b = date2.toLocaleDateString(); %><%- b %></p>
+    <p>契約した売上<br><%= user[0].sales %></p>
+    <p>現在契約本数<br><%= user[0].CurrentContractCount %></p>
+    <p>アポ先部署<br><%= user[0].AppointmentDepartment %></p>
+    <p>担当者名<br><%= user[0].ContactPersonName %></p>
+    <p>担当者名かな<br><%= user[0].ContactPersonKana %></p>
+    <p>会社URL<br><%= user[0].URL %></p>
+    <br>
+    <p>商談履歴<br>
+        <input type="date"></p>
+    <p>〇〇業務に関する商談<br>
+        <input type="date"></p>
+    <p>TODOリスト（機能</p>
+    <p>目標数値<br>
+        null<button>編集</button></p>
+    <p>目標数値と現在数値までいくらか<br>
+        残り</p>
     </body>
 </html>

@@ -2,11 +2,13 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/style.css">
         <title>一覧画面 - 顧客管理</title>
     </head>
     <body>
         <button><a href="/create" onclick="route()">新規登録</a></button>
         <div id="main-page"></div>
+
         <table>
             <thead>
                 <th>次回アポ日付</th>
@@ -66,37 +68,5 @@
                     <% } %>
             </tbody>
         </table>
-        <script type="text/javascript">
-        </script>
-        <style>
-            a {
-                text-decoration: none;
-                color: #000;
-            }
-
-            table {
-                border-collapse: collapse;
-            }
-
-            th,
-            td {
-                text-align: center;
-                border: 1px solid #ccc;
-                padding: 10px;
-            }
-
-            td.bt {
-                border: none;
-            }
-
-            thead {
-                background-color: green;
-                color: #fff;
-            }
-
-            button {
-                margin: 5px;
-            }
-        </style>
     </body>
 </html>

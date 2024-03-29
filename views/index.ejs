@@ -5,7 +5,8 @@
         <title>一覧画面 - 顧客管理</title>
     </head>
     <body>
-        <button><a href="/create">新規登録</a></button>
+        <button><a href="/create" onclick="route()">新規登録</a></button>
+        <div id="main-page"></div>
         <table>
             <thead>
                 <th>次回アポ日付</th>
@@ -24,7 +25,7 @@
                 <% for (let i=0; i < users.length; i++) { %>
                     <tr>
                         <td>
-                            <% var date2=users[i].NextAppointmentDate; var b=date2.toLocaleString('ja-JP', {era:'long'}); %>
+                            <% var date2=users[i].NextAppointmentDate; var b=date2.toLocaleDateString(); %>
                                 <%- b %>
                         </td>
                         <td>

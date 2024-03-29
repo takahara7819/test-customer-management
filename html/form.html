@@ -1,50 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>新規登録 - 顧客管理</title>
-        <style>
-            p {
-                margin: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>入力フォーム</h1>
-        <form action="/" method="post" onSubmit=" return ( nameCheck() && emailCheck() ) ">
-            <p>name <input type="text" name="name"></p>
-            <p>email <input type="text" name="email"></p>
-            <p><input type="submit" id="btn" value="送信"></p>
-        </form>
-        <script>
-            let name = document.getElementsByName("name");
-            let email = document.getElementsByName("email");
-            const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
-
-            //名前バリデーション
-            function nameCheck() {
-                if (name[0].value.match(/^[a-z]\.*/)) {
-                    name[0].style.backgroundColor = "white"
-                    return true;
-                    console.log("true")
-                } else {
-                    name[0].style.backgroundColor = "red"
-                    return false;
-                    console.log("false")
-                }
-            }
-            //メールバリデーション
-            function emailCheck() {
-                if (email[0].value.match(regex)) {
-                    email[0].style.backgroundColor = "white"
-                    return true;
-                } else {
-                    email[0].style.backgroundColor = "red"
-                    return false;
-                }
-            }
-            name[0].addEventListener('change', nameCheck);
-            email[0].addEventListener('change', emailCheck);
-        </script>
-    </body>
-</html>
+<div>
+    <h1>新規登録</h1>
+    <p>会社名<br><input type="text"></p>
+    <p>会社の所在地</p>
+    <p>資本金<br><input type="text"></p>
+    <p>アポ日付<br><input type="date"></p>
+    <p>契約した売上<br><input type="text"></p>
+    <p>現在契約本数<br><input type="text"></p>
+    <p>アポ先部署<br><input type="text"></p>
+    <p>担当者名<br><input type="text"></p>
+    <p>担当者名かな<br><input type="text"></p>
+    <p>会社URL<br><input type="text"></p>
+    <br>
+    <p>目標数値<br>
+    <input type="text"></p>
+    <p>〇〇業務に関する商談<br>
+    <input type="date"></p>
+    <p>目標数値<br>
+    <input type="text"></p>
+    <p>目標数値と現在数値までいくらか<br>
+        残り</p>
+</div>

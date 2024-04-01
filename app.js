@@ -17,6 +17,7 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
+
 // mysqlからデータを持ってくる
 app.get("/", (req, res) => {
   const sql = "select * from appointments";
@@ -29,15 +30,16 @@ app.get("/", (req, res) => {
     });
   });
 
+  //ページ遷移
   app.get("/create", (req, res) => {
-    res.sendFile(path.join(__dirname, "html/form.html"));
+    res.sendFile(path.join(__dirname, "./html/form.html"));
   });
-  // ==========ここまでの範囲で書くようにしましょう。==========
+
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.render("index", {
       users: result,
-      // ⓵ こちらはapp.jsで宣言した変数をindex.ejsのscriptタグ内で使用するために登録する場所になっています。
+      //app.jsで宣言した変数をindex.ejsのscriptタグ内で使用する
     });
   });
 });
@@ -61,6 +63,7 @@ app.post("/update/:id", (req, res) => {
   });
 });
 
+//間違えてDB削除しちゃうからいったんコメントアウト
 // app.get("/delete/:id", (req, res) => {
 //   const sql = "DELETE FROM appointments WHERE id = ?";
 //   con.query(sql, [req.params.id], function (err, result, fields) {

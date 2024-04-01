@@ -1,50 +1,35 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <title>新規登録 - 顧客管理</title>
-        <style>
-            p {
-                margin: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>入力フォーム</h1>
-        <form action="/" method="post" onSubmit=" return ( nameCheck() && emailCheck() ) ">
-            <p>name <input type="text" name="name"></p>
-            <p>email <input type="text" name="email"></p>
-            <p><input type="submit" id="btn" value="送信"></p>
-        </form>
-        <script>
-            let name = document.getElementsByName("name");
-            let email = document.getElementsByName("email");
-            const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+<div>
+    <h1>新規登録</h1>
+    <form action="/" method="post">
+        <div>
+            <p>会社名<br><input type="text" name="CompanyName"></p>
+            <p>会社名かな<br><input type="text" name="CompanyNameKana"></p>
+            <p>会社の所在地<br><input type="text" name="address"></p>
+            <p>資本金<br><input type="number" name="Capital"></p>
+            <p>従業員数<br><input type="number" name="EmployeesCount"></p>
+            <p>契約した売上<br><input type="number" name="sales"></p>
+            <p>現在契約本数<br><input type="number" name="CurrentContractCount"></p>
+        </div>
+        <div>
+            <p>アポ日付<br><input type="date" name="NextAppointmentDate"></p>
+            <p>アポ先部署<br><input type="text" name="AppointmentDepartment"></p>
+            <p>担当者名<br><input type="text" name="ContactPersonName"></p>
+            <p>担当者名かな<br><input type="text" name="ContactPersonKana"></p>
+            <p>会社URL<br><input type="text" name="URL"></p>
+            <p>目標数値<br><input type="number" name="salesGoal"></p>
+            <p><input type="submit" value="新規登録"></p>
+        </div>
+    </form>
+</div>
+<style>
+    h1 {
+        text-align: center;
+    }
 
-            //名前バリデーション
-            function nameCheck() {
-                if (name[0].value.match(/^[a-z]\.*/)) {
-                    name[0].style.backgroundColor = "white"
-                    return true;
-                    console.log("true")
-                } else {
-                    name[0].style.backgroundColor = "red"
-                    return false;
-                    console.log("false")
-                }
-            }
-            //メールバリデーション
-            function emailCheck() {
-                if (email[0].value.match(regex)) {
-                    email[0].style.backgroundColor = "white"
-                    return true;
-                } else {
-                    email[0].style.backgroundColor = "red"
-                    return false;
-                }
-            }
-            name[0].addEventListener('change', nameCheck);
-            email[0].addEventListener('change', emailCheck);
-        </script>
-    </body>
-</html>
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+    }
+</style>

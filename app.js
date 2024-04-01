@@ -63,6 +63,16 @@ app.post("/update/:id", (req, res) => {
   });
 });
 
+app.get("/custom/:id", (req, res) => {
+  const sql = "SELECT * FROM appointments WHERE id = ?";
+  con.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    res.render("custom", {
+      user: result,
+    });
+  });
+});
+
 //間違えてDB削除しちゃうからいったんコメントアウト
 // app.get("/delete/:id", (req, res) => {
 //   const sql = "DELETE FROM appointments WHERE id = ?";

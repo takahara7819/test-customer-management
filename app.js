@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
   //ページ遷移
   app.get("/create", (req, res) => {
-    res.sendFile(path.join(__dirname, "html/form.html"));
+    res.sendFile(path.join(__dirname, "./html/form.html"));
   });
 
   con.query(sql, function (err, result, fields) {

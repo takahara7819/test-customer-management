@@ -1,22 +1,35 @@
 <div>
     <h1>新規登録</h1>
-    <p>会社名<br><input type="text"></p>
-    <p>会社の所在地</p>
-    <p>資本金<br><input type="text"></p>
-    <p>アポ日付<br><input type="date"></p>
-    <p>契約した売上<br><input type="text"></p>
-    <p>現在契約本数<br><input type="text"></p>
-    <p>アポ先部署<br><input type="text"></p>
-    <p>担当者名<br><input type="text"></p>
-    <p>担当者名かな<br><input type="text"></p>
-    <p>会社URL<br><input type="text"></p>
-    <br>
-    <p>目標数値<br>
-    <input type="text"></p>
-    <p>〇〇業務に関する商談<br>
-    <input type="date"></p>
-    <p>目標数値<br>
-    <input type="text"></p>
-    <p>目標数値と現在数値までいくらか<br>
-        残り</p>
+    <form action="/" method="post">
+        <div>
+            <p>会社名<br><input type="text" name="CompanyName"></p>
+            <p>会社名かな<br><input type="text" name="CompanyNameKana"></p>
+            <p>会社の所在地<br><input type="text" name="address"></p>
+            <p>資本金<br><input type="number" name="Capital"></p>
+            <p>従業員数<br><input type="number" name="EmployeesCount"></p>
+            <p>契約した売上<br><input type="number" name="sales"></p>
+            <p>現在契約本数<br><input type="number" name="CurrentContractCount"></p>
+        </div>
+        <div>
+            <p>アポ日付<br><input type="date" name="NextAppointmentDate"></p>
+            <p>アポ先部署<br><input type="text" name="AppointmentDepartment"></p>
+            <p>担当者名<br><input type="text" name="ContactPersonName"></p>
+            <p>担当者名かな<br><input type="text" name="ContactPersonKana"></p>
+            <p>会社URL<br><input type="text" name="URL"></p>
+            <p>目標数値<br><input type="number" name="salesGoal"></p>
+            <p><input type="submit" value="新規登録"></p>
+        </div>
+    </form>
 </div>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+    }
+</style>

@@ -30,11 +30,13 @@
                 <%= user[0].URL %></p>
         </section>
         <section>
-            <form>
+            <form action="/update/<%= user[0].id %>" method="POST">
                 <p>商談履歴</p>
                 <input type="date">
                 <input type="text">
-                <p>TODOリスト（機能</p>
+                <p>TODOリスト</p>
+                <input type="checkbox"><input type="text"><input type="button" value="追加">
+                <ul id=""></ul>
                 <p>目標数値<br>
                     ¥<%= Number(user[0].salesGoal).toLocaleString() %>
                     <button>編集</button></p>
@@ -46,8 +48,15 @@
         </section>
     </div>
     <style>
-        #page{
+        h1 {
+            text-align: center;
+        }
+
+        #page {
             display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
         }
     </style>
     </body>

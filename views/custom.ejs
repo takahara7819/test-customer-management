@@ -13,13 +13,13 @@
                 <p>会社の所在地<br>
                     <input type="text" name="address" value="<%= user[0].address %>"></p>
                 <p>資本金<br>
-                    ¥<input type="text" name="Capital" value="<%= user[0].Capital.toLocaleString() %>"></p>
+                    ¥<input type="text" name="Capital" value="<%= user[0].Capital %>"></p>
                 <p>アポ日付<br>
                         <% var date2 = user[0].NextAppointmentDate;
                         var b = date2.toLocaleDateString(); %>
                         <input type="text" name="NextAppointmentDate" value="<%- b %>"></p>
                 <p>契約した売上<br>
-                    ¥<input type="text" name="sales" value="<%= user[0].sales.toLocaleString() %>"></p>
+                    ¥<input type="text" name="sales" value="<%= user[0].sales %>"></p>
                 <p>現在契約本数<br>
                     <input type="text" name="CurrentContractCount" value="<%= user[0].CurrentContractCount %>"></p>
                 <p>アポ先部署<br>
@@ -33,7 +33,7 @@
                 <p>会社URL<br>
                     <input type="text" name="URL" value="<%= user[0].URL %>"></p>
                 <p>目標数値<br>
-                    ¥<input type="text" name="salesGoal" value="<%= user[0].salesGoal.toLocaleString() %>">
+                    ¥<input type="text" name="salesGoal" value="<%= user[0].salesGoal %>">
                 <p>目標数値と現在数値までいくらか<br>
                             残り
                             <% var goal = user[0].salesGoal - user[0].sales %>

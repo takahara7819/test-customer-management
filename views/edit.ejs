@@ -33,16 +33,17 @@
             <p>商談履歴</p>
             <ul>
                 <% for (let i=0; i < user.length; i++) { %>
-                    <input type="checkbox" <%=user[i].taskChecked %> > <li>
+                    <label>
+                        <input type="checkbox" <%=user[i].taskChecked %> >
+                    <li>
                         <% var date2=user[i].Date; var b=date2.toLocaleDateString(); %>
                             <%- b %>
                                 <%= user[i].task %>
                     </li>
+                    </label>
                     <% } %>
-            </ul>
-            日付：<input type="date" name="Date"><br>
-            内容：<input type="text" name="task">
-            <input type="button" value="追加">
+            </ul> 日付：<input type="date" name="Date"><br> 内容：<input type="text" name="task">
+            <input type="button" value="商談履歴追加">
             <ul id=""></ul>
             <p>目標数値<br>¥<%= user[0].salesGoal.toLocaleString() %></p>
             <p>目標数値と現在数値までいくらか<br>
@@ -61,6 +62,17 @@
             justify-content: center;
             align-items: flex-start;
             gap: 30px;
+        }
+
+        #page li{
+            list-style: none;
+            display: inline;
+            border-bottom: 1px solid #ccc;
+            
+        }
+        #page label{
+            display: block;
+            margin: 5px;
         }
     </style>
     </body>

@@ -30,21 +30,17 @@
                 <%= user[0].URL %></p>
         </section>
         <section>
-            <form action="/update/<%= user[0].id %>" method="POST">
-                <p>商談履歴</p>
-                <input type="date">
-                <input type="text">
-                <p>TODOリスト</p>
-                <input type="checkbox"><input type="text"><input type="button" value="追加">
-                <ul id=""></ul>
-                <p>目標数値<br>
-                    ¥<%= user[0].salesGoal.toLocaleString() %>
-                    <button id="selesBt">編集</button></p>
-                <p>目標数値と現在数値までいくらか<br>
+            <p>商談履歴</p>
+            <input type="date">
+            <input type="text">
+            <p>TODOリスト</p>
+            <input type="checkbox"><input type="text"><input type="button" value="追加">
+            <ul id=""></ul>
+            <p>目標数値<br>¥<%= user[0].salesGoal.toLocaleString() %></p>
+            <p>目標数値と現在数値までいくらか<br>
                     残り
                     <% var goal = user[0].salesGoal - user[0].sales %>
                     ¥<%= goal.toLocaleString() %></p>
-            </form>
         </section>
     </div>
     <style>

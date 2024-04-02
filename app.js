@@ -72,6 +72,14 @@ app.get("/custom/:id", (req, res) => {
     });
   });
 });
+// app.post("/update2/:id", (req, res) => {
+//   const sql = "UPDATE appointments SET ? WHERE id = " + req.params.id;
+//   con.query(sql, req.body, function (err, result, fields) {
+//     if (err) throw err;
+//     console.log(result);
+//     res.redirect("/");
+//   });
+// });
 
 //間違えてDB削除しちゃうからいったんコメントアウト
 // app.get("/delete/:id", (req, res) => {

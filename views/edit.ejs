@@ -5,19 +5,19 @@
         <title>詳細情報 - 顧客管理</title>
     </head>
     <h1>詳細情報ページ</h1>
-    <div>
+    <div id="page">
         <section>
             <p>会社名<br>
                 <%= user[0].CompanyName %></p>
             <p>会社の所在地<br>
                 <%= user[0].address %></p>
             <p>資本金<br>
-                ¥<%= Number(user[0].Capital).toLocaleString() %></p>
+                ¥<%= user[0].Capital.toLocaleString() %></p>
             <p>アポ日付<br>
                 <% var date2 = user[0].NextAppointmentDate;
                 var b = date2.toLocaleDateString(); %><%- b %></p>
             <p>契約した売上<br>
-                ¥<%= Number(user[0].sales).toLocaleString() %></p>
+                ¥<%= user[0].sales.toLocaleString() %></p>
             <p>現在契約本数<br>
                 <%= user[0].CurrentContractCount %></p>
             <p>アポ先部署<br>
@@ -38,11 +38,11 @@
                 <input type="checkbox"><input type="text"><input type="button" value="追加">
                 <ul id=""></ul>
                 <p>目標数値<br>
-                    ¥<%= Number(user[0].salesGoal).toLocaleString() %>
+                    ¥<%= user[0].salesGoal.toLocaleString() %>
                     <button>編集</button></p>
                 <p>目標数値と現在数値までいくらか<br>
                     残り
-                    <% var goal = Number(user[0].salesGoal) - Number(user[0].sales) %>
+                    <% var goal = user[0].salesGoal - user[0].sales %>
                     ¥<%= goal.toLocaleString() %></p>
             </form>
         </section>

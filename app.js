@@ -17,7 +17,7 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
-// mysqlからデータを持ってくる
+// mysqlからデータを持ってくる joinで別テーブルと結合
 app.get("/", (req, res) => {
   const sql = "select * from appointments";
   app.post("/", (req, res) => {
@@ -43,9 +43,10 @@ app.get("/", (req, res) => {
   });
 });
 
-//詳細情報ページ取得
+//詳細情報ページ取得 appointmentsテーブルにworksテーブルを結合
 app.get("/edit/:id", (req, res) => {
-  const sql = "SELECT * FROM appointments WHERE id = ?";
+  const sql =
+    "SELECT * FROM appointments JOIN works ON appointments.id = works.id WHERE appointments.id = ?";
   con.query(sql, [req.params.id], function (err, result, fields) {
     if (err) throw err;
     res.render("edit", {
@@ -54,10 +55,9 @@ app.get("/edit/:id", (req, res) => {
   });
 });
 
-
 //編集ページ取得・送信
 app.get("/custom/:id", (req, res) => {
-  const sql = "SELECT * FROM appointments WHERE id = ?";
+  const sql = "SELECT * FROM appointments WHERE id = ? ";
   con.query(sql, [req.params.id], function (err, result, fields) {
     if (err) throw err;
     res.render("custom", {
@@ -66,14 +66,13 @@ app.get("/custom/:id", (req, res) => {
   });
 });
 app.post("/update/:id", (req, res) => {
-  const sql = "UPDATE appointments SET ? WHERE id = " + req.params.id;
+  const sql = "UPDATE appointments, works SET ? WHERE id = " + req.params.id;
   con.query(sql, req.body, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     res.redirect("/");
   });
 });
-
 
 //間違えてDB削除しちゃうからいったんコメントアウト
 // app.get("/delete/:id", (req, res) => {

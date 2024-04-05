@@ -60,6 +60,7 @@ app.post("/taskup/:id", (req, res) => {
   con.query(sql, req.body, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
+    res.redirect("/edit/" + req.params.id);
   });
 });
 //TODOリスト 更新用
@@ -68,6 +69,7 @@ app.post("/taskcheck/:id", (req, res) => {
   con.query(sql, req.body, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
+    res.redirect("/edit/" + req.params.id);
   });
 });
 

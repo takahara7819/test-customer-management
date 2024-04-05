@@ -36,7 +36,8 @@
                 <ul>
                     <% for (let i=0; i < user.length; i++) { %>
                         <label>
-                            <input type="checkbox" name="taskChecked" <%=user[i].taskChecked %> > <li>
+                            <input type="checkbox" id="saveCheck" name="taskChecked" <%=user[i].taskChecked %> > <li>
+                                <button type="submit" id="checkBt" style="display: none;"></button>
                                 <% var todoDate=user[i].Date; var todoD=todoDate.toLocaleDateString(); %>
                                     <%= todoD %>
                                         <%= user[i].task %>
@@ -80,5 +81,8 @@
             margin: 5px;
         }
     </style>
+    <script>
+
+    </script>
     </body>
 </html>

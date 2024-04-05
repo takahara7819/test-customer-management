@@ -54,6 +54,22 @@ app.get("/edit/:id", (req, res) => {
     });
   });
 });
+//TODOリスト 商談履歴追加
+app.post("/taskup/:id", (req, res) => {
+  const sql = "INSERT INTO works SET ?";
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+//TODOリスト 更新用
+app.post("/taskcheck/:id", (req, res) => {
+  const sql = "UPDATE works SET ? WHERE task = " + req.params.task;
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
 
 //編集ページ取得・送信
 app.get("/custom/:id", (req, res) => {
@@ -66,7 +82,7 @@ app.get("/custom/:id", (req, res) => {
   });
 });
 app.post("/update/:id", (req, res) => {
-  const sql = "UPDATE appointments, works SET ? WHERE id = " + req.params.id;
+  const sql = "UPDATE appointments SET ? WHERE id = " + req.params.id;
   con.query(sql, req.body, function (err, result, fields) {
     if (err) throw err;
     console.log(result);

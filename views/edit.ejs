@@ -31,13 +31,12 @@
         </section>
         <section>
             <p>商談履歴</p>
-            <!-- TODOリストチェック更新用フォーム -->
-            <form action="/taskcheck/<%= user[0].id %>" method="POST">
+            <!-- TODOリスト チェック状態更新用フォーム -->
+            <form action="/taskcheck/<%= user[0].id %>" method="POST" id="checkForm">
                 <ul>
                     <% for (let i=0; i < user.length; i++) { %>
                         <label>
-                            <input type="checkbox" id="saveCheck" name="taskChecked" <%=user[i].taskChecked %> > <li>
-                                <button type="submit" id="checkBt" style="display: none;"></button>
+                            <input type="checkbox" class="saveCheck" name="taskChecked" value="<%=user[i].taskChecked %>" <%=user[i].taskChecked ? 'checked' : '' %>> <li>
                                 <% var todoDate=user[i].Date; var todoD=todoDate.toLocaleDateString(); %>
                                     <%= todoD %>
                                         <%= user[i].task %>
@@ -49,7 +48,7 @@
             <!-- 履歴追加フォーム -->
             <form action="/taskup/<%= user[0].id %>" method="POST">
                 <input type="number" name="id" value="<%= user[0].id %>" style="display: none;"> 日付：<input type="date" name="Date"><br> 内容：<input type="text" name="task">
-                <button type="submit" id="taskBt">商談履歴追加</button>
+                <button type="submit">商談履歴追加</button>
             </form>
             <p>目標数値<br>¥<%= user[0].salesGoal.toLocaleString() %></p>
             <p>目標数値と現在数値までいくらか<br>
@@ -82,6 +81,22 @@
         }
     </style>
     <script>
+        let checkForm = document.getElementById("checkForm");
+        var input_agree = document.querySelectorAll(".saveCheck");
+        for (let i = 0; i < input_agree.length; i++) {
+            function valueChange() {
+                if (input_agree[i].checked) {
+                    console.log(i + "番目チェック済");
+                    console.log(input_agree[i].checked);
+                    checkForm.submit();
+                } else {
+                    console.log(i + "番目チェック解除");
+                    console.log(input_agree[i].checked);
+                    checkForm.submit();
+                }
+            }
+            input_agree[i].addEventListener('change', valueChange);
+        }
 
     </script>
     </body>

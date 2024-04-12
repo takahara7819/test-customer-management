@@ -17,7 +17,6 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
-// mysqlからデータを持ってくる joinで別テーブルと結合
 app.get("/", (req, res) => {
   const sql = "select * from appointments";
   app.post("/", (req, res) => {
@@ -38,12 +37,11 @@ app.get("/", (req, res) => {
     if (err) throw err;
     res.render("index", {
       users: result,
-      //app.jsで宣言した変数をindex.ejsのscriptタグ内で使用する
     });
   });
 });
 
-//詳細情報ページ取得 appointmentsテーブルにworksテーブルを結合
+//詳細情報ページ取得
 app.get("/edit/:id", (req, res) => {
   const sql =
     "SELECT * FROM appointments JOIN works ON appointments.id = works.id WHERE appointments.id = ?";
@@ -53,9 +51,9 @@ app.get("/edit/:id", (req, res) => {
       user: result,
     });
   });
-
 });
-//TODOリスト 商談履歴追加
+
+//詳細情報ページ 商談履歴追加
 app.post("/taskup/:id", (req, res) => {
   const sql = "INSERT INTO works SET ?";
   con.query(sql, req.body, function (err, result, fields) {

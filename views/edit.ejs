@@ -14,8 +14,8 @@
             <p>資本金<br>
                 ¥<%= user[0].Capital.toLocaleString() %></p>
             <p>アポ日付<br>
-                <% var date2 = user[0].NextAppointmentDate;
-                var b = date2.toLocaleDateString(); %><%- b %></p>
+                <% const date2 = user[0].NextAppointmentDate;
+                const b = date2.toLocaleDateString(); %><%- b %></p>
             <p>契約した売上<br>
                 ¥<%= user[0].sales.toLocaleString() %></p>
             <p>現在契約本数<br>
@@ -35,14 +35,13 @@
                     <% for (let i=0; i < user.length; i++) { %>
                         <label>
                             <li>
-                                <% var todoDate=user[i].Date; var todoD=todoDate.toLocaleDateString(); %>
+                                <% const todoDate=user[i].Date; const todoD=todoDate.toLocaleDateString(); %>
                                     <%= todoD %>
                                         <%= user[i].task %>
                             </li>
                         </label>
                         <% } %>
                 </ul>
-            <!-- 履歴追加フォーム -->
             <form action="/taskup/<%= user[0].id %>" method="POST">
                 <input type="number" name="id" value="<%= user[0].id %>" style="display: none;"> 日付：<input type="date" name="Date"><br> 内容：<input type="text" name="task">
                 <button type="submit">商談履歴追加</button>

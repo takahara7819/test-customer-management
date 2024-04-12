@@ -17,8 +17,6 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
-
-// mysqlからデータを持ってくる
 app.get("/", (req, res) => {
   const sql = "select * from appointments";
   app.post("/", (req, res) => {
@@ -39,13 +37,14 @@ app.get("/", (req, res) => {
     if (err) throw err;
     res.render("index", {
       users: result,
-      //app.jsで宣言した変数をindex.ejsのscriptタグ内で使用する
     });
   });
 });
 
+//詳細情報ページ取得
 app.get("/edit/:id", (req, res) => {
-  const sql = "SELECT * FROM appointments WHERE id = ?";
+  const sql =
+    "SELECT * FROM appointments JOIN works ON appointments.id = works.id WHERE appointments.id = ?";
   con.query(sql, [req.params.id], function (err, result, fields) {
     if (err) throw err;
     res.render("edit", {
@@ -54,6 +53,26 @@ app.get("/edit/:id", (req, res) => {
   });
 });
 
+//詳細情報ページ 商談履歴追加
+app.post("/taskup/:id", (req, res) => {
+  const sql = "INSERT INTO works SET ?";
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.redirect("/edit/" + req.params.id);
+  });
+});
+
+//編集ページ取得・送信
+app.get("/custom/:id", (req, res) => {
+  const sql = "SELECT * FROM appointments WHERE id = ? ";
+  con.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    res.render("custom", {
+      user: result,
+    });
+  });
+});
 app.post("/update/:id", (req, res) => {
   const sql = "UPDATE appointments SET ? WHERE id = " + req.params.id;
   con.query(sql, req.body, function (err, result, fields) {
@@ -62,15 +81,5 @@ app.post("/update/:id", (req, res) => {
     res.redirect("/");
   });
 });
-
-//間違えてDB削除しちゃうからいったんコメントアウト
-// app.get("/delete/:id", (req, res) => {
-//   const sql = "DELETE FROM appointments WHERE id = ?";
-//   con.query(sql, [req.params.id], function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//     res.redirect("/");
-//   });
-// });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

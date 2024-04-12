@@ -12,12 +12,12 @@
             <p>会社の所在地<br>
                 <%= user[0].address %></p>
             <p>資本金<br>
-                ¥<%= Number(user[0].Capital).toLocaleString() %></p>
+                ¥<%= user[0].Capital.toLocaleString() %></p>
             <p>アポ日付<br>
-                <% var date2 = user[0].NextAppointmentDate;
-                var b = date2.toLocaleDateString(); %><%- b %></p>
+                <% const date2 = user[0].NextAppointmentDate;
+                const b = date2.toLocaleDateString(); %><%- b %></p>
             <p>契約した売上<br>
-                ¥<%= Number(user[0].sales).toLocaleString() %></p>
+                ¥<%= user[0].sales.toLocaleString() %></p>
             <p>現在契約本数<br>
                 <%= user[0].CurrentContractCount %></p>
             <p>アポ先部署<br>
@@ -30,21 +30,27 @@
                 <%= user[0].URL %></p>
         </section>
         <section>
-            <form action="/update/<%= user[0].id %>" method="POST">
-                <p>商談履歴</p>
-                <input type="date">
-                <input type="text">
-                <p>TODOリスト</p>
-                <input type="checkbox"><input type="text"><input type="button" value="追加">
-                <ul id=""></ul>
-                <p>目標数値<br>
-                    ¥<%= Number(user[0].salesGoal).toLocaleString() %>
-                    <button>編集</button></p>
-                <p>目標数値と現在数値までいくらか<br>
-                    残り
-                    <% var goal = Number(user[0].salesGoal) - Number(user[0].sales) %>
-                    ¥<%= goal.toLocaleString() %></p>
+            <p>商談履歴</p>
+                <ul>
+                    <% for (let i=0; i < user.length; i++) { %>
+                        <label>
+                            <li>
+                                <% const todoDate=user[i].Date; const todoD=todoDate.toLocaleDateString(); %>
+                                    <%= todoD %>
+                                        <%= user[i].task %>
+                            </li>
+                        </label>
+                        <% } %>
+                </ul>
+            <form action="/taskup/<%= user[0].id %>" method="POST">
+                <input type="number" name="id" value="<%= user[0].id %>" style="display: none;"> 日付：<input type="date" name="Date"><br> 内容：<input type="text" name="task">
+                <button type="submit">商談履歴追加</button>
             </form>
+            <p>目標数値<br>¥<%= user[0].salesGoal.toLocaleString() %></p>
+            <p>目標数値と現在数値までいくらか<br>
+                    残り
+                    <% const goal = user[0].salesGoal - user[0].sales %>
+                    ¥<%= goal.toLocaleString() %></p>
         </section>
     </div>
     <style>
@@ -57,6 +63,17 @@
             justify-content: center;
             align-items: flex-start;
             gap: 30px;
+        }
+
+        #page li {
+            list-style: none;
+            display: inline;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #page label {
+            display: block;
+            margin: 5px;
         }
     </style>
     </body>

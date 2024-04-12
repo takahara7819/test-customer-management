@@ -29,7 +29,7 @@
                                 <%- b %>
                         </td>
                         <td>
-                            <%- users[i].sales %>
+                            ¥<%- users[i].sales.toLocaleString() %>
                         </td>
                         <td>
                             <%- users[i].CurrentContractCount %>
@@ -41,7 +41,7 @@
                             <%- users[i].CompanyNameKana %>
                         </td>
                         <td>
-                            <%- users[i].Capital %>
+                            ¥<%- users[i].Capital.toLocaleString() %>
                         </td>
                         <td>
                             <%- users[i].EmployeesCount %>
@@ -60,7 +60,7 @@
                         </td>
                         <td class="bt">
                             <button><a href="/edit/<%- users[i].id %>">詳細情報</a></button>
-                            <!-- <button><a href="/delete/<%- users[i].id %>">編集</a></button> -->
+                            <button><a href="/custom/<%- users[i].id %>">編集</a></button>
                         </td>
                     </tr>
                     <% } %>

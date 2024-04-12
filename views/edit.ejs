@@ -49,7 +49,7 @@
             <p>目標数値<br>¥<%= user[0].salesGoal.toLocaleString() %></p>
             <p>目標数値と現在数値までいくらか<br>
                     残り
-                    <% var goal = user[0].salesGoal - user[0].sales %>
+                    <% const goal = user[0].salesGoal - user[0].sales %>
                     ¥<%= goal.toLocaleString() %></p>
         </section>
     </div>

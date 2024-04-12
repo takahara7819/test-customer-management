@@ -53,19 +53,11 @@ app.get("/edit/:id", (req, res) => {
       user: result,
     });
   });
+
 });
 //TODOリスト 商談履歴追加
 app.post("/taskup/:id", (req, res) => {
   const sql = "INSERT INTO works SET ?";
-  con.query(sql, req.body, function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    res.redirect("/edit/" + req.params.id);
-  });
-});
-//TODOリスト チェック状態更新用
-app.post("/taskcheck/:id", (req, res) => {
-  const sql = "UPDATE works SET ? WHERE id = " + req.params.id ;
   con.query(sql, req.body, function (err, result, fields) {
     if (err) throw err;
     console.log(result);
@@ -91,15 +83,5 @@ app.post("/update/:id", (req, res) => {
     res.redirect("/");
   });
 });
-
-//間違えてDB削除しちゃうからいったんコメントアウト
-// app.get("/delete/:id", (req, res) => {
-//   const sql = "DELETE FROM appointments WHERE id = ?";
-//   con.query(sql, [req.params.id], function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//     res.redirect("/");
-//   });
-// });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

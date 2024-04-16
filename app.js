@@ -17,28 +17,45 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
+//テーブル全体を取得
+const sql = "SELECT * FROM appointments";
+// 目標金額の合計値を取得するSQLクエリ
+const goalQuery = "SELECT SUM(salesGoal) AS totalGoal FROM appointments";
+// 売上金額の合計値を取得するSQLクエリ
+const salesQuery = "SELECT SUM(sales) AS totalSales FROM appointments";
+
 app.get("/", (req, res) => {
-  const sql = "select * from appointments";
-  app.post("/", (req, res) => {
-    const sql = "INSERT INTO appointments SET ?";
-    con.query(sql, req.body, function (err, result, fields) {
-      if (err) throw err;
-      console.log(result);
-      res.redirect("/");
-    });
-  });
-
-  //ページ遷移
-  app.get("/create", (req, res) => {
-    res.sendFile(path.join(__dirname, "./html/form.html"));
-  });
-
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    res.render("index", {
-      users: result,
+    con.query(goalQuery, function (err, goalResult, fields) {
+      if (err) throw err;
+      con.query(salesQuery, function (err, salesResult, fields) {
+        if (err) throw err;
+        const totalGoal = goalResult[0].totalGoal;
+        const totalSales = salesResult[0].totalSales;
+
+        console.log("Total Goal:", totalGoal);
+        console.log("Total Sales:", totalSales);
+        // console.log(result);
+
+        res.render("index", {
+          Goal: totalGoal,
+          Sales: totalSales,
+          users: result,
+        });
+      });
     });
   });
+});
+app.post("/", (req, res) => {
+  const sql = "INSERT INTO appointments SET ?";
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+  });
+});
+//ページ遷移
+app.get("/create", (req, res) => {
+  res.sendFile(path.join(__dirname, "./html/form.html"));
 });
 
 //詳細情報ページ取得

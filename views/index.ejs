@@ -116,14 +116,13 @@
         <script>
             //json形式で受け取り
             let item = JSON.parse('<%- JSON.stringify(Chert) %>');
-            //空の配列にアイテム種別でpush
+            //アイテム種別分け
             let chert_name = []; let chert_sales = []; let chert_con = [];
             for (let i = 0; i < item.length; i++) {
                 chert_name.push(item[i].CompanyName);
                 chert_sales.push(item[i].totalSales);
                 chert_con.push(item[i].totalContracts);
             }
-            console.log(typeof chert_name);
 
             //グラフ描画
             let ctx = document.getElementById("myBarChart");
@@ -161,8 +160,6 @@
                     },
                 }
             });
-
-
         </script>
     </body>
 </html>

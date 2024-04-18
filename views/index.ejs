@@ -4,68 +4,78 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap-reboot.min.css">
         <title>一覧画面 - 顧客管理</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     </head>
     <body>
         <button><a href="/create">新規登録</a></button>
-        <table>
-            <thead>
-                <th>次回アポ日付</th>
-                <th>契約した売上</th>
-                <th>現在契約本数</th>
-                <th>会社名</th>
-                <th>会社名かな</th>
-                <th>資本金</th>
-                <th>従業員数</th>
-                <th>アポ先部署</th>
-                <th>担当者名</th>
-                <th>担当者名かな</th>
-                <th>URL</th>
-            </thead>
-            <tbody>
-                <% for (let i=0; i < users.length; i++) { %>
-                    <tr>
-                        <td>
-                            <% var date2=users[i].NextAppointmentDate; var b=date2.toLocaleDateString(); %>
-                                <%- b %>
-                        </td>
-                        <td>
-                            ¥<%- users[i].sales.toLocaleString() %>
-                        </td>
-                        <td>
-                            <%- users[i].CurrentContractCount %>
-                        </td>
-                        <td>
-                            <%- users[i].CompanyName %>
-                        </td>
-                        <td>
-                            <%- users[i].CompanyNameKana %>
-                        </td>
-                        <td>
-                            ¥<%- users[i].Capital.toLocaleString() %>
-                        </td>
-                        <td>
-                            <%- users[i].EmployeesCount %>
-                        </td>
-                        <td>
-                            <%- users[i].AppointmentDepartment %>
-                        </td>
-                        <td>
-                            <%- users[i].ContactPersonName %>
-                        </td>
-                        <td>
-                            <%- users[i].ContactPersonKana %>
-                        </td>
-                        <td>
-                            <%- users[i].URL %>
-                        </td>
-                        <td class="bt">
-                            <button><a href="/edit/<%- users[i].id %>">詳細情報</a></button>
-                            <button><a href="/custom/<%- users[i].id %>">編集</a></button>
-                        </td>
-                    </tr>
-                    <% } %>
-            </tbody>
-        </table>
+        <div id="usersTable">
+            <table>
+                <thead>
+                    <th>次回アポ日付</th>
+                    <th>契約した売上</th>
+                    <th>現在契約本数</th>
+                    <th>会社名</th>
+                    <th>会社名かな</th>
+                    <th>資本金</th>
+                    <th>従業員数</th>
+                    <th>アポ先部署</th>
+                    <th>担当者名</th>
+                    <th>担当者名かな</th>
+                    <th>URL</th>
+                </thead>
+                <tbody>
+                    <% for (let i=0; i < users.length; i++) { %>
+                        <tr>
+                            <td>
+                                <% var date2=users[i].NextAppointmentDate; var b=date2.toLocaleDateString(); %>
+                                    <%- b %>
+                            </td>
+                            <td> ¥<%- users[i].sales.toLocaleString() %>
+                            </td>
+                            <td>
+                                <%- users[i].CurrentContractCount %>
+                            </td>
+                            <td>
+                                <%- users[i].CompanyName %>
+                            </td>
+                            <td>
+                                <%- users[i].CompanyNameKana %>
+                            </td>
+                            <td> ¥<%- users[i].Capital.toLocaleString() %>
+                            </td>
+                            <td>
+                                <%- users[i].EmployeesCount %>
+                            </td>
+                            <td>
+                                <%- users[i].AppointmentDepartment %>
+                            </td>
+                            <td>
+                                <%- users[i].ContactPersonName %>
+                            </td>
+                            <td>
+                                <%- users[i].ContactPersonKana %>
+                            </td>
+                            <td>
+                                <%- users[i].URL %>
+                            </td>
+                            <td class="bt">
+                                <button><a href="/edit/<%- users[i].id %>">詳細情報</a></button>
+                                <button><a href="/custom/<%- users[i].id %>">編集</a></button>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div id="usersSales">
+            <h2>売上統計</h2>
+            <p>契約売上合計金額: ¥<%= Number(Sales).toLocaleString() %></p>
+            <p>目標売上合計金額: ¥<%= Number(Goal).toLocaleString() %></p>
+            <p>全体目標金額まであと: ¥<%= (Goal-Sales).toLocaleString() %></p>
+        </div>
+        <div style="position:relative;width:70%;">
+            <canvas id="myBarChart"></canvas>
+        </div>
         <style>
             a {
                 text-decoration: none;
@@ -96,6 +106,63 @@
             button {
                 margin: 5px;
             }
+
+            .ganttContainer {
+                width: 800px;
+                height: 400px;
+                border: 1px solid #ccc;
+            }
         </style>
+        <script>
+            //json形式で受け取り
+            let item = JSON.parse('<%- JSON.stringify(Chert) %>');
+            //空の配列にアイテム種別でpush
+            let chert_name = []; let chert_sales = []; let chert_con = [];
+            for (let i = 0; i < item.length; i++) {
+                chert_name.push(item[i].CompanyName);
+                chert_sales.push(item[i].totalSales);
+                chert_con.push(item[i].totalContracts);
+            }
+            console.log(typeof chert_name);
+
+            //グラフ描画
+            let ctx = document.getElementById("myBarChart");
+            const myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chert_name.map((v) => v.replace('ー', '丨').split("")), //会社名縦表記
+                    datasets: [
+                        {
+                            label: '契約売上',
+                            data: chert_sales.map(function (e) {
+                                return e / 1000
+                            }),
+                            backgroundColor: "rgba(219,39,91,0.5)"
+                        }, {
+                            label: '契約本数',
+                            data: chert_con,
+                            backgroundColor: "rgba(130,201,169,0.5)",
+                        }
+                    ]
+                },
+                options: {
+                    tooltips: {
+                        enabled: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                suggestedMin: 0,
+                                callback: function (value, index, values) {
+                                    return '¥' + value * 1000
+                                }
+                            }
+                        }]
+                    },
+                }
+            });
+
+
+        </script>
     </body>
 </html>

@@ -18,27 +18,50 @@ const con = mysql.createConnection({
 });
 
 app.get("/", (req, res) => {
-  const sql = "select * from appointments";
-  app.post("/", (req, res) => {
-    const sql = "INSERT INTO appointments SET ?";
-    con.query(sql, req.body, function (err, result, fields) {
-      if (err) throw err;
-      console.log(result);
-      res.redirect("/");
-    });
-  });
-
-  //ページ遷移
-  app.get("/create", (req, res) => {
-    res.sendFile(path.join(__dirname, "./html/form.html"));
-  });
-
+  //テーブル全体を取得
+  const sql = "SELECT * FROM appointments";
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
-    res.render("index", {
-      users: result,
+
+    // 目標金額の合計値を取得するSQLクエリ
+    const goalQuery = "SELECT SUM(salesGoal) AS totalGoal FROM appointments";
+    con.query(goalQuery, function (err, goalResult, fields) {
+      if (err) throw err;
+
+      // 売上金額の合計値を取得するSQLクエリ
+      const salesQuery = "SELECT SUM(sales) AS totalSales FROM appointments";
+      con.query(salesQuery, function (err, salesResult, fields) {
+        if (err) throw err;
+        const totalGoal = goalResult[0].totalGoal;
+        const totalSales = salesResult[0].totalSales;
+
+        //グラフ用のクエリ
+        const graphQuery =
+          "SELECT CompanyName, SUM(sales) AS totalSales, SUM(CurrentContractCount) AS totalContracts FROM appointments GROUP BY CompanyName";
+        con.query(graphQuery, function (err, graphResult, fields) {
+          if (err) throw err;
+          console.log(graphResult); // 結果をログに出力
+          res.render("index", {
+            users: result,
+            Goal: totalGoal,
+            Sales: totalSales,
+            Chert: graphResult,
+          });
+        });
+      });
     });
   });
+});
+app.post("/", (req, res) => {
+  const sql = "INSERT INTO appointments SET ?";
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+  });
+});
+
+//ページ遷移
+app.get("/create", (req, res) => {
+  res.sendFile(path.join(__dirname, "./html/form.html"));
 });
 
 //詳細情報ページ取得

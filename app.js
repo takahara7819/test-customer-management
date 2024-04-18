@@ -17,31 +17,36 @@ const con = mysql.createConnection({
   database: "user_db",
 });
 
-//テーブル全体を取得
-const sql = "SELECT * FROM appointments";
-// 目標金額の合計値を取得するSQLクエリ
-const goalQuery = "SELECT SUM(salesGoal) AS totalGoal FROM appointments";
-// 売上金額の合計値を取得するSQLクエリ
-const salesQuery = "SELECT SUM(sales) AS totalSales FROM appointments";
-
 app.get("/", (req, res) => {
+  //テーブル全体を取得
+  const sql = "SELECT * FROM appointments";
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
+
+    // 目標金額の合計値を取得するSQLクエリ
+    const goalQuery = "SELECT SUM(salesGoal) AS totalGoal FROM appointments";
     con.query(goalQuery, function (err, goalResult, fields) {
       if (err) throw err;
+
+      // 売上金額の合計値を取得するSQLクエリ
+      const salesQuery = "SELECT SUM(sales) AS totalSales FROM appointments";
       con.query(salesQuery, function (err, salesResult, fields) {
         if (err) throw err;
         const totalGoal = goalResult[0].totalGoal;
         const totalSales = salesResult[0].totalSales;
 
-        console.log("Total Goal:", totalGoal);
-        console.log("Total Sales:", totalSales);
-        // console.log(result);
-
-        res.render("index", {
-          Goal: totalGoal,
-          Sales: totalSales,
-          users: result,
+        //グラフ用のクエリ
+        const graphQuery =
+          "SELECT CompanyName, SUM(sales) AS totalSales, SUM(CurrentContractCount) AS totalContracts FROM appointments GROUP BY CompanyName";
+        con.query(graphQuery, function (err, graphResult, fields) {
+          if (err) throw err;
+          console.log(graphResult); // 結果をログに出力
+          res.render("index", {
+            users: result,
+            Goal: totalGoal,
+            Sales: totalSales,
+            Chert: graphResult,
+          });
         });
       });
     });
@@ -53,6 +58,19 @@ app.post("/", (req, res) => {
     if (err) throw err;
   });
 });
+
+//index.ejs/Chart.js
+// app.get("/", (req, res) => {
+//   const graphQuery =
+//     "SELECT CompanyName, SUM(sales) AS totalSales, SUM(CurrentContractCount) AS totalContracts FROM appointments GROUP BY CompanyName";
+//   con.query(graphQuery, function (err, result, fields) {
+//     if (err) throw err;
+//     console.log(result);
+//     res.render("index", { Chert: JSON.stringify(result) });
+//     // res.json(result); // データをJSON形式で返す
+//   });
+// });
+
 //ページ遷移
 app.get("/create", (req, res) => {
   res.sendFile(path.join(__dirname, "./html/form.html"));

@@ -59,18 +59,6 @@ app.post("/", (req, res) => {
   });
 });
 
-//index.ejs/Chart.js
-// app.get("/", (req, res) => {
-//   const graphQuery =
-//     "SELECT CompanyName, SUM(sales) AS totalSales, SUM(CurrentContractCount) AS totalContracts FROM appointments GROUP BY CompanyName";
-//   con.query(graphQuery, function (err, result, fields) {
-//     if (err) throw err;
-//     console.log(result);
-//     res.render("index", { Chert: JSON.stringify(result) });
-//     // res.json(result); // データをJSON形式で返す
-//   });
-// });
-
 //ページ遷移
 app.get("/create", (req, res) => {
   res.sendFile(path.join(__dirname, "./html/form.html"));

@@ -133,29 +133,41 @@
                     datasets: [
                         {
                             label: '契約売上',
-                            data: chert_sales.map(function (e) {
-                                return e / 1000
-                            }),
-                            backgroundColor: "rgba(219,39,91,0.5)"
+                            data: chert_sales,
+                            backgroundColor: "rgba(219,39,91,0.5)",
+                            yAxisID: "salesY",
                         }, {
                             label: '契約本数',
                             data: chert_con,
                             backgroundColor: "rgba(130,201,169,0.5)",
+                            yAxisID: "conY",
                         }
                     ]
                 },
                 options: {
-                    tooltips: {
-                        enabled: false
-                    },
                     scales: {
                         yAxes: [{
+                            id: "salesY",
                             ticks: {
-                                suggestedMin: 0,
+                                min: 0,
+                                stepSize: 20000,
                                 callback: function (value, index, values) {
-                                    return '¥' + value * 1000
+                                    return '¥' + value
                                 }
                             }
+                        }, {
+                            id: "conY",
+                            position: "right",
+                            ticks: {
+                                max: 150,
+                                min: 0,
+                                callback:function (value, index, values) {
+                                    return  value + '本'
+                                }
+                            },
+                            gridLines: {
+                                drawOnChartArea: false,
+                            },
                         }]
                     },
                 }
